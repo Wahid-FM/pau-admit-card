@@ -7,11 +7,12 @@ import { format } from 'date-fns';
 import Styles from '../styles/faculty.module.scss';
 
 
+
 const AdmitCardGenerator = ({studentData, session, term}) => {
   const [url, setUrl] = useState('')
 
   useEffect(() => {
-    QRCode.toDataURL(`${studentData.Name} have ${studentData[' Cumulative Dues ']} taka Dues`)
+    QRCode.toDataURL(`${studentData.Name} have permission to sit for exam`)
     .then(url => {
       setUrl(url)
     })

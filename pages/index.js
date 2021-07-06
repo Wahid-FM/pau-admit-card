@@ -18,6 +18,7 @@ const Login = () => {
     const [session, setSession] = useState('Summer - 2021')
     const [term, setTerm] = useState('Mid Exam')
     const [submitClicked , setsubmitClicked ] = useState(false)
+    const [settingErr , setSettingErr ] = useState('')
 
     const [studentData , setStudentData] = useState({})
 
@@ -30,11 +31,23 @@ const Login = () => {
       const handleSubmit = (e) => {
 
         e.preventDefault();
-        setsubmitClicked(true)
         let id = values.studentid
 
-        if(id.length < 9) seterr('Invalid Student ID ')
-        else if(id.includes('-')) {id =  id.split('-').join(' ')}
+        if( id === '' || term === '' || session === '' ){
+            setSettingErr('Fillup All the Fields ... ')
+            return;
+        }
+
+        else if(id.length < 9) {
+            seterr('Invalid Student ID ')
+            return;
+        } 
+
+        
+        setsubmitClicked(true)
+
+
+         if(id.includes('-')) {id =  id.split('-').join(' ')}
         else if(id.length === 9) {id =  [id.substr(0,3) , id.substr(3,3) , id.substr(6,3)].join(' ')}
 
         axios.get(`/api/student/${id}`)
@@ -49,7 +62,18 @@ const Login = () => {
 
         setValues({studentid : ''})
       }
-      console.log(studentData)
+
+      const errorStyle = {
+        color:'#b34040' ,
+        boxShadow:'-5px -5px 20px #fff,5px 5px 20px #babecc',
+        padding:10 , 
+        textAlign:'center', 
+        border:'1px solid' ,
+        fontSize : 13,
+        width: '70%',
+        margin: '0 auto'
+    }
+
     
     return (
         <div className={Styles.container}> 
@@ -75,7 +99,7 @@ const Login = () => {
                         value = {values.studentid}
                         />
                     </label>
-                    { err && <p style={{color:'red'}} > {err} </p>}
+                    { err && <p style={errorStyle} > {err} </p>}
 
                     <div className={Styles.optionHolder} >
                       <div className={Styles.selectWrapper}>
@@ -101,6 +125,12 @@ const Login = () => {
                         </div>
                     </div>
 
+                    { settingErr && <p 
+                        style={errorStyle} > 
+                        {settingErr} </p>
+                    }
+
+
                     <button className={`${Styles.red} ${Styles.button}`} type="submit" onClick={handleSubmit}>
                         Submit
                     </button> 
@@ -125,13 +155,14 @@ const Login = () => {
                 <div className={Styles.studentData}>  
                     <p> Name : {studentData.Name}</p>
                     <p> ID : {studentData.ID}</p>
-                    <p> Due :  {studentData[' Cumulative Dues ']}</p>
+                    <p> Permission :  You { (studentData.havePermission || studentData[' Cumulative Dues '] < 5000 ) ? '' : 'Dont'} have permission  </p>
                  
                     <div style={{textAlign:'center'}}>
-                     <QRCode value={`${studentData.Name} have ${studentData[' Cumulative Dues ']} taka Dues`}  />
+                     <QRCode value={`${studentData.Name}, you ${ (studentData.havePermission || studentData[' Cumulative Dues '] < 5000 ) ? '' : 'dont'} have permission to sit for exam`}  />
                     </div>
 
                     { (studentData.havePermission || studentData[' Cumulative Dues '] < 5000 ) ? 
+
                         <AdmitCardGenerator studentData={studentData} session={session} term={term}/> : 
                            <button className={`${Styles.red} ${Styles.button}`} type="button" 
                                 onClick={ () => Router.reload(window.location.pathname) }>

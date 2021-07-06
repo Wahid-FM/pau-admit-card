@@ -72,6 +72,7 @@ const Login = () => {
             <div className={Styles.mainDiv}>
 
                 <div style={{marginBottom : '2rem' , textAlign:'center'}}>
+
                     <Image src='logo.png' alt="me" width="120" height="130" />
                 </div>
 

@@ -10,7 +10,14 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-          {/* <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" /> */}
+          <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <link rel="icon" href="/favicon.ico" type="image/x-icon"></link>
+          <title>
+        Admit Card - Primeasia University
+      </title>
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

@@ -5,6 +5,7 @@ import axios from 'axios'
 import Spinner from '../components/spinner/spinner'
 import Alert from '@material-ui/lab/Alert';
 import Router from 'next/router';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const Login = () => {   
     
@@ -73,7 +74,7 @@ const Login = () => {
 
                 <div style={{marginBottom : '2rem' , textAlign:'center'}}>
 
-                    <Image src='logo.png' alt="me" width="120" height="130" />
+                    <img src='/logo.png' alt="me" width="120" height="130" />
                 </div>
 
                 <div style={{margin : '2rem auto' , textAlign:'center'}}>
@@ -123,7 +124,21 @@ const Login = () => {
 
                 </form>  
                 
-                :
+                : studentData.notFound ? (
+                    <div className={Styles.studentData}>
+                        <CancelIcon style={{width: '7rem', height: '7rem', color: '#e74c3c', textAlign: 'center'}}/>
+                        <p style={{textAlign: 'center'}}>Sorry, The ID you searched for is <strong style={{color: '#c0392b'}}>Not Found</strong> in our Database</p>
+                        <button 
+                            className={`${Styles.red} ${Styles.button}`} 
+                            type="button" 
+                            onClick={ () => Router.reload(window.location.pathname) }
+                        >
+                            Go Back 
+                        </button> 
+                    </div>
+                ) 
+                : (
+                           
                            
                  <div className={Styles.studentData}>  
 
@@ -146,7 +161,7 @@ const Login = () => {
                     </button> 
 
                     </div>
-                }
+                )}
                 
             </div>
         </div>

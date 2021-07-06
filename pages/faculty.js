@@ -5,7 +5,7 @@ import axios from 'axios';
 import Router from 'next/router';
 import QRCode from 'qrcode.react';
 import Spinner from '../components/spinner/spinner'
-
+import CancelIcon from '@material-ui/icons/Cancel';
 const Login = () => {   
     
     const [values, setValues] = useState({
@@ -135,7 +135,20 @@ const Login = () => {
 
                 </form>  
                  
-                :
+                 : studentData.notFound ? (
+                    <div className={Styles.studentData}>
+                        <CancelIcon style={{width: '7rem', height: '7rem', color: '#e74c3c', textAlign: 'center'}}/>
+                        <p style={{textAlign: 'center'}}>Sorry, The ID you searched for is <strong style={{color: '#c0392b'}}>Not Found</strong> in our Database</p>
+                        <button 
+                            className={`${Styles.red} ${Styles.button}`} 
+                            type="button" 
+                            onClick={ () => Router.reload(window.location.pathname) }
+                        >
+                            Go Back 
+                        </button> 
+                    </div>
+                ) 
+                : (
                            
                  <div className={Styles.studentData}>  
 
@@ -157,7 +170,7 @@ const Login = () => {
                  </button> 
 
                     </div>
-                }
+                )}
             </div>
         </div>
     )

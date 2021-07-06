@@ -140,7 +140,7 @@ const Login = () => {
                 : studentData.notFound ? (
                     <div className={Styles.studentData}>
                         <CancelIcon style={{width: '7rem', height: '7rem', color: '#e74c3c', textAlign: 'center'}}/>
-                        <p style={{textAlign: 'center'}}>Sorry, The ID you searched for is Not Found in our Database</p>
+                        <p style={{textAlign: 'center'}}>Sorry, The ID you searched for is <strong style={{color: '#c0392b'}}>Not Found</strong> in our Database</p>
                         <button 
                             className={`${Styles.red} ${Styles.button}`} 
                             type="button" 

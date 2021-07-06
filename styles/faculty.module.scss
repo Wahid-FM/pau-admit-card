@@ -111,7 +111,7 @@ $color-white: #FFF;
     border: inset 5px;
     border-color: rgba(42, 49, 72, 0.8) transparent transparent transparent;
     border-top-style: solid;
-    top: 45%;
+    top: 30%;
     right: 1rem;
   }
 }
@@ -236,7 +236,7 @@ $color-white: #FFF;
   border-radius: 20px;
   font-size: 23px;
   margin-top: 20px;
-  // text-align: center;
+  text-align: center;
   @media (max-width:480px) {
     box-shadow: none;
     padding: 0px;
